@@ -119,8 +119,8 @@ import { Pressable } from 'react-native'
   - `onChangeText` - 사용자가 입력하는 Text를 받을 수 있습니다.
   - [`keyboardType`](https://reactnative.dev/docs/textinput#keyboardtype) - 상황에 따른 키보드 타입을 바꿀 수 있게 설정할 수 있습니다.
     - `number-pad`, `email-address`, `phone-pad` 등과 함께 사용합니다.
-  - `returnKeyType`(https://reactnative.dev/docs/textinput#returnkeytype) - "Enter" 키의 기능을 변경할 수 있습니다.
-    - `returnKeyLable`(https://reactnative.dev/docs/textinput#returnkeylabel-android) - 안드로이드에서만 작동. "Enter" 키의 이름을 변경할 수 있습니다.
+  - `returnKeyType` - "Enter" 키의 기능을 변경할 수 있습니다.
+    - `returnKeyLable` - 안드로이드에서만 작동. "Enter" 키의 이름을 변경할 수 있습니다.
   - `secureTextEntry` - 비밀번호를 입력할 때 입력하는 비밀번호가 보이지 않습니다. `<input type="password" />`와 동일합니다.
   - `multiline` - 여러 내용의 글을 입력할 수 있습니다. `<input type="textarea" />`와 동일합니다.
   - `placeholderTextColor` - `placeholder`의 텍스트 색을 변경합니다.
