@@ -124,9 +124,10 @@ import { Pressable } from 'react-native'
   - `secureTextEntry` - 비밀번호를 입력할 때 입력하는 비밀번호가 보이지 않습니다. `<input type="password" />`와 동일합니다.
   - `multiline` - 여러 내용의 글을 입력할 수 있습니다. `<input type="textarea" />`와 동일합니다.
   - `placeholderTextColor` - `placeholder`의 텍스트 색을 변경합니다.
+  - `onSubmitEditing` - 사용자가 키보드의 "확인(Enter)" 버튼 누르는 것을 감지.
 
 ```JavaScript
 import { TextInput } from 'react-native'
 
-<TextInput keyboardType="number-pad" returnKeyType="send">...</TextInput>
+<TextInput keyboardType="number-pad" returnKeyType="done" onSubmitEditing={addTodo}>...</TextInput>
 ```
