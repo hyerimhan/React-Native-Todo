@@ -60,57 +60,57 @@ npm start or expo start --tunnel
 
 #### Touchables
 
-1. [TouchableOpacity](https://reactnative.dev/docs/touchableopacity)
+- [TouchableOpacity](https://reactnative.dev/docs/touchableopacity)
 
-- 누르는 이벤트를 listen할 준비가 된 애니메이션 효과가 있는 `View`와 비슷한 컴포넌트입니다.
-- 클릭시 해당 컴포넌트가 약간 투명해지는 효과가 있습니다.
-  - `activeOpacity` - 해당 컴포넌트 투명도 조절
-  - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
+  - 누르는 이벤트를 listen할 준비가 된 애니메이션 효과가 있는 `View`와 비슷한 컴포넌트입니다.
+  - 클릭시 해당 컴포넌트가 약간 투명해지는 효과가 있습니다.
+    - `activeOpacity` - 해당 컴포넌트 투명도 조절
+    - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
 
-```JavaScript
-import { TouchableOpacity } from 'react-native'
+  ```JavaScript
+  import { TouchableOpacity } from 'react-native'
 
-<TouchableOpacity activeOpacity={0} onPress={()=>console.log("press")}>...</TouchableOpacity>
-```
+  <TouchableOpacity activeOpacity={0} onPress={()=>console.log("press")}>...</TouchableOpacity>
+  ```
 
-2. [TouchableHightlight](https://reactnative.dev/docs/touchablehighlight)
+- [TouchableHightlight](https://reactnative.dev/docs/touchablehighlight)
 
-- 누르는 이벤트를 listen할 준비가 된 애니메이션 효과가 있는 `View`와 비슷한 컴포넌트입니다.
-- 클릭시 해당 컴포넌트의 배경에 효과를 줍니다.
-  - `activeOpacity` - 해당 컴포넌트 투명도 조절
-  - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
-  - `underlayColor` - 클릭 시 배경색 변경, `onPress`와 함께 사용
+  - 누르는 이벤트를 listen할 준비가 된 애니메이션 효과가 있는 `View`와 비슷한 컴포넌트입니다.
+  - 클릭시 해당 컴포넌트의 배경에 효과를 줍니다.
+    - `activeOpacity` - 해당 컴포넌트 투명도 조절
+    - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
+    - `underlayColor` - 클릭 시 배경색 변경, `onPress`와 함께 사용
 
-```JavaScript
-import { TouchableHightlight } from 'react-native'
+  ```JavaScript
+  import { TouchableHightlight } from 'react-native'
 
-<TouchableHightlight activeOpacity={0} onPress={()=>console.log("press")} underlayColor="#ddd">...</TouchableHightlight>
-```
+  <TouchableHightlight activeOpacity={0} onPress={()=>console.log("press")} underlayColor="#ddd">...</TouchableHightlight>
+  ```
 
-3. [TouchableWithoutFeedback](https://reactnative.dev/docs/touchablewithoutfeedback)
+- [TouchableWithoutFeedback](https://reactnative.dev/docs/touchablewithoutfeedback)
 
-- 그래픽이나 다른 UI 반응없이 화면의 가장 위에서 일어나는 탭 이벤트를 listen하는 컴포넌트
-  - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
+  - 그래픽이나 다른 UI 반응없이 화면의 가장 위에서 일어나는 탭 이벤트를 listen하는 컴포넌트
+    - `onPress` - 사용자가 Touchable을 눌렀을때 실행되는 이벤트
 
-```JavaScript
-import { TouchableWithoutFeedback } from 'react-native'
+  ```JavaScript
+  import { TouchableWithoutFeedback } from 'react-native'
 
-<TouchableWithoutFeedback onPress={()=>console.log("press")}>...</TouchableWithoutFeedback>
-```
+  <TouchableWithoutFeedback onPress={()=>console.log("press")}>...</TouchableWithoutFeedback>
+  ```
 
-4. [Pressable](https://reactnative.dev/docs/pressable)
+- [Pressable](https://reactnative.dev/docs/pressable)
 
-- 비교적 최근에 나온 컴포넌트입니다.
-- 위의 컴포넌트들과 비슷하지만 보다 좀 더 상세하게 설정할 수 있습니다.
-  - `delayLongPress` - 얼마나 길게 누르면 반응하게 할지 설정
-  - `disabled` - 비활성화 여부 설정
-  - `hitSlop` - 해당 요소 바깥 어디까지 탭 누르는 것을 감지할지 설정
+  - 비교적 최근에 나온 컴포넌트입니다.
+  - 위의 컴포넌트들과 비슷하지만 보다 좀 더 상세하게 설정할 수 있습니다.
+    - `delayLongPress` - 얼마나 길게 누르면 반응하게 할지 설정
+    - `disabled` - 비활성화 여부 설정
+    - `hitSlop` - 해당 요소 바깥 어디까지 탭 누르는 것을 감지할지 설정
 
-```JavaScript
-import { Pressable } from 'react-native'
+  ```JavaScript
+  import { Pressable } from 'react-native'
 
-<Pressable delayLongPress={500} disabled={false} hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}>...</Pressable>
-```
+  <Pressable delayLongPress={500} disabled={false} hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}>...</Pressable>
+  ```
 
 #### [TextInput](https://reactnative.dev/docs/textinput)
 
@@ -118,12 +118,14 @@ import { Pressable } from 'react-native'
 
   - `onChangeText` - 사용자가 입력하는 Text를 받을 수 있습니다.
   - [`keyboardType`](https://reactnative.dev/docs/textinput#keyboardtype) - 상황에 따른 키보드 타입을 바꿀 수 있게 설정할 수 있습니다.
-    - `number-pad`, `email-address`, `phone-pad` 등과 함께 사용합니다.
+    - number-pad, email-address, phone-pad 등과 함께 사용합니다.
   - `returnKeyType` - "Enter" 키의 기능을 변경할 수 있습니다.
     - `returnKeyLable` - 안드로이드에서만 작동. "Enter" 키의 이름을 변경할 수 있습니다.
-  - `secureTextEntry` - 비밀번호를 입력할 때 입력하는 비밀번호가 보이지 않습니다. `<input type="password" />`와 동일합니다.
-  - `multiline` - 여러 내용의 글을 입력할 수 있습니다. `<input type="textarea" />`와 동일합니다.
-  - `placeholderTextColor` - `placeholder`의 텍스트 색을 변경합니다.
+  - `secureTextEntry` - 비밀번호를 입력할 때 입력하는 비밀번호가 보이지 않습니다.
+    - `<input type="password" />`와 동일합니다.
+  - `multiline` - 여러 내용의 글을 입력할 수 있습니다.
+    - `<input type="textarea" />`와 동일합니다.
+  - `placeholderTextColor` - placeholder의 텍스트 색을 변경합니다.
   - `onSubmitEditing` - 사용자가 키보드의 "확인(Enter)" 버튼 누르는 것을 감지.
 
 ```JavaScript
@@ -135,7 +137,7 @@ import { TextInput } from 'react-native'
 #### [ScrollView](https://reactnative.dev/docs/scrollview)
 
 - 해당 영역에만 Scroll이 적용됩니다.
-- CSS의 `overflow: auto`와 비슷.
+- CSS의 `overflow: auto`와 비슷합니다.
 
 ```JavaScript
 import { ScrollView } from 'react-native'
