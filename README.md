@@ -131,3 +131,14 @@ import { TextInput } from 'react-native'
 
 <TextInput keyboardType="number-pad" returnKeyType="done" onSubmitEditing={addTodo}>...</TextInput>
 ```
+
+#### [ScrollView](https://reactnative.dev/docs/scrollview)
+
+- 해당 영역에만 Scroll이 적용됩니다.
+- CSS의 `overflow: auto`와 비슷.
+
+```JavaScript
+import { ScrollView } from 'react-native'
+
+<ScrollView>...</ScrollView>
+```
