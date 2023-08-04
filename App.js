@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import {
   StyleSheet,
@@ -7,21 +7,71 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
+  Platform,
 } from 'react-native'
 import { theme } from './colors'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Fontisto } from '@expo/vector-icons'
+
+const STORAGE_KEY = '@todos'
 
 export default function App() {
   const [working, setWorking] = useState(true)
   const [text, setText] = useState('')
   const [todos, setTodos] = useState({})
+
+  useEffect(() => {
+    loadTodos()
+  }, [])
+
   const travel = () => setWorking(false)
   const work = () => setWorking(true)
   const onChangeText = (payload) => setText(payload)
-  const addTodo = () => {
+  const saveTodos = async (toSave) => {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
+  }
+  const loadTodos = async () => {
+    try {
+      const s = await AsyncStorage.getItem(STORAGE_KEY)
+      if (s) {
+        setTodos(JSON.parse(s))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const addTodo = async () => {
     if (text === '') return
-    const newTodos = { ...todos, [Date.now()]: { text, work: working } }
+    const newTodos = { ...todos, [Date.now()]: { text, working } }
     setTodos(newTodos)
+    await saveTodos(newTodos)
     setText('')
+  }
+  const deleteTodo = (key) => {
+    if (Platform.OS === 'web') {
+      const ok = confirm('Do tou want to delete this To Do?')
+      if (ok) {
+        const newTodos = { ...todos }
+        delete newTodos[key]
+        setTodos(newTodos)
+        saveTodos(newTodos)
+      }
+    } else {
+      Alert.alert('Delete Todo', 'Are you sure?', [
+        { text: 'Cancel' },
+        {
+          text: "I'm Sure",
+          onPress: () => {
+            const newTodos = { ...todos }
+            delete newTodos[key]
+            setTodos(newTodos)
+            saveTodos(newTodos)
+          },
+        },
+      ])
+    }
   }
   return (
     <View style={styles.container}>
@@ -29,7 +79,11 @@ export default function App() {
       <View style={styles.header}>
         <TouchableOpacity onPress={work}>
           <Text
-            style={{ ...styles.btnText, color: working ? 'white' : theme.grey }}
+            style={{
+              fontSize: 38,
+              fontWeight: 600,
+              color: working ? 'white' : theme.grey,
+            }}
           >
             Work
           </Text>
@@ -37,7 +91,8 @@ export default function App() {
         <TouchableOpacity onPress={travel}>
           <Text
             style={{
-              ...styles.btnText,
+              fontSize: 38,
+              fontWeight: 600,
               color: !working ? 'white' : theme.grey,
             }}
           >
@@ -54,14 +109,23 @@ export default function App() {
         style={styles.input}
       />
       <ScrollView>
-        {Object.keys(todos).map((key) => (
-          <View
-            style={styles.todo}
-            key={key}
-          >
-            <Text style={styles.todoText}>{todos[key].text}</Text>
-          </View>
-        ))}
+        {Object.keys(todos).map((key) =>
+          todos[key].working === working ? (
+            <View
+              style={styles.todo}
+              key={key}
+            >
+              <Text style={styles.todoText}>{todos[key].text}</Text>
+              <TouchableOpacity onPress={() => deleteTodo(key)}>
+                <Fontisto
+                  name='trash'
+                  size={18}
+                  color={theme.todoBg}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null
+        )}
       </ScrollView>
     </View>
   )
@@ -78,10 +142,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 100,
   },
-  btnText: {
-    fontSize: 38,
-    fontWeight: 600,
-  },
   input: {
     backgroundColor: 'white',
     paddingVertical: 15,
@@ -96,6 +156,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   todoText: {
     color: 'white',

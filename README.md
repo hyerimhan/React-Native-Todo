@@ -1,4 +1,4 @@
-# [React-Native-TodoApp]()
+# [React-Native-TodoApp](https://expo.dev/@beiie/whtApp)
 
 :point_up_2: 제목을 클릭하면 배포된 사이트를 확인하실 수 있습니다.
 
@@ -143,4 +143,121 @@ import { TextInput } from 'react-native'
 import { ScrollView } from 'react-native'
 
 <ScrollView>...</ScrollView>
+```
+
+### 🔆 APIs
+
+#### [Alert](https://reactnative.dev/docs/alert)
+
+- 확인 팝업창을 띄웁니다.
+  - `text`: 취소 / 확인 버튼을 생성할 수 있습니다.
+  - `onPress`: 버튼 클릭 후, 실행될 로직을 작성합니다.
+
+```JavaScript
+  const deleteTodo = (key) => {
+    Alert.alert('Delete Todo', 'Are you sure?', [
+      { text: 'Cancel' },
+      {
+        text: "I'm Sure",
+        onPress: () => {
+          const newTodos = { ...todos }
+          delete newTodos[key]
+          setTodos(newTodos)
+          saveTodos(newTodos)
+        },
+      },
+    ])
+  }
+```
+
+#### [Platform](https://reactnative.dev/docs/platform)
+
+- 플랫폼 OS를 체크합니다.
+  - android, ios, macos, web, windows 가 내장되어 있습니다.
+
+```JavaScript
+import { Platform } from 'react-native';
+
+  const deleteTodo = (key) => {
+    if (Platform.OS === 'web') {
+      // ...
+    }
+  }
+```
+
+### 🔆 사용한 라이브러리
+
+#### [AsyncStorage](https://docs.expo.dev/versions/latest/sdk/async-storage/)
+
+- `AsyncStorage`는 `localStorage`와 비슷한 역할입니다.
+- 현재 사용중인 expo 버전과 같은 버전의 모듈을 설치(사용 가능한 버전)하기 위해 `expo install`을 사용합니다.
+
+```
+expo install @react-native-async-storage/async-storage
+```
+
+- set
+  - 데이터를 저장합니다.
+
+```JavaScript
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Storing string value
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem('my-key', value);
+  } catch (e) {
+    // saving error
+  }
+};
+
+// Storing object value
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('my-key', jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+```
+
+- get
+  - 저장한 데이터를 가져옵니다.
+
+```JavaScript
+// Reading string value
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('my-key');
+    if (value !== null) {
+      // value previously stored
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
+// Reading object value
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('my-key');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
+```
+
+### 🔆 빌드
+
+```
+npm install -g eas-cli
+```
+
+- app store에 보낼 수 있도록 만들어 줍니다.
+- 컴퓨터에서 만들어지는 것이 아니라 expo 서버에서 이루어지기 때문에 window에서도 ios앱을 개발할 수 있습니다.
+
+```
+eas build -p android or eas build -p ios
 ```
