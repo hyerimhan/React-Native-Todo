@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native'
 import { theme } from './colors'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -33,7 +34,9 @@ export default function App() {
   const loadTodos = async () => {
     try {
       const s = await AsyncStorage.getItem(STORAGE_KEY)
-      setTodos(JSON.parse(s))
+      if (s) {
+        setTodos(JSON.parse(s))
+      }
     } catch (error) {
       console.log(error)
     }
@@ -47,18 +50,28 @@ export default function App() {
     setText('')
   }
   const deleteTodo = (key) => {
-    Alert.alert('Delete Todo', 'Are you sure?', [
-      { text: 'Cancel' },
-      {
-        text: "I'm Sure",
-        onPress: () => {
-          const newTodos = { ...todos }
-          delete newTodos[key]
-          setTodos(newTodos)
-          saveTodos(newTodos)
+    if (Platform.OS === 'web') {
+      const ok = confirm('Do tou want to delete this To Do?')
+      if (ok) {
+        const newTodos = { ...todos }
+        delete newTodos[key]
+        setTodos(newTodos)
+        saveTodos(newTodos)
+      }
+    } else {
+      Alert.alert('Delete Todo', 'Are you sure?', [
+        { text: 'Cancel' },
+        {
+          text: "I'm Sure",
+          onPress: () => {
+            const newTodos = { ...todos }
+            delete newTodos[key]
+            setTodos(newTodos)
+            saveTodos(newTodos)
+          },
         },
-      },
-    ])
+      ])
+    }
   }
   return (
     <View style={styles.container}>
@@ -66,7 +79,11 @@ export default function App() {
       <View style={styles.header}>
         <TouchableOpacity onPress={work}>
           <Text
-            style={{ ...styles.btnText, color: working ? 'white' : theme.grey }}
+            style={{
+              fontSize: 38,
+              fontWeight: 600,
+              color: working ? 'white' : theme.grey,
+            }}
           >
             Work
           </Text>
@@ -74,7 +91,8 @@ export default function App() {
         <TouchableOpacity onPress={travel}>
           <Text
             style={{
-              ...styles.btnText,
+              fontSize: 38,
+              fontWeight: 600,
               color: !working ? 'white' : theme.grey,
             }}
           >
@@ -123,10 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginTop: 100,
-  },
-  btnText: {
-    fontSize: 38,
-    fontWeight: 600,
   },
   input: {
     backgroundColor: 'white',
