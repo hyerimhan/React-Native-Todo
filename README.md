@@ -56,6 +56,20 @@ cd <프로젝트 폴더명>
 npm start or expo start --tunnel
 ```
 
+### 🔆 사용한 라이브러리
+
+- [Expo icons](https://icons.expo.fyi/)
+
+  - 해당 사이트에서 아이콘을 클릭한 후, 디테일 페이지를 확인하여 아이콘을 프로젝트에 적용합니다.
+
+  ```
+  ex)
+  import {Fontisto} from '@expo/vector-icons'
+
+  <Fontisto name="wind" size={25} color="black" />
+
+  ```
+
 ### 🔆 Components
 
 #### Touchables
